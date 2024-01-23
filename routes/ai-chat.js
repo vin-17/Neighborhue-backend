@@ -20,12 +20,6 @@ router.post("/chatbot", async (req, res) => {
       return res.status(400).json({ error: "Message is required." });
     }
 
-    // Call OpenAI API to generate chatbot response
-    // const response = await openaiAPI.Complete({
-    //   engine: "text-davinci-002", // Use the desired engine
-    //   prompt: `User: ${message}\nChatGPT:`, // Prompt structure for chat-based models
-    //   max_tokens: 150, // Adjust the maximum number of tokens in the response
-    // });
     // Set OpenAI API completion parameters
     const completions = await openaiAPI.chat.completions.create({
         model: 'gpt-3.5-turbo',
@@ -34,11 +28,10 @@ router.post("/chatbot", async (req, res) => {
           { role: 'user', content: `Write a response to the following message :  ${message}.` },
         ],
         temperature: 1,
-        max_tokens: 100,
+        max_tokens: 75,
       });
 
     // Extract chatbot's reply from the API response
-    // const chatbotReply = response.choices[0]?.text.trim();
     if (completions.choices && completions.choices.length > 0) {
         // const response = completions.choices[0].text;
         const response = completions.choices[0].message.content;
@@ -71,6 +64,12 @@ router.post("/chatbot", async (req, res) => {
   }
 });
 
+
+
+
+
+
+export default router;
 // router.post("/new", isAuthenticated, newTask); //create task
 // router.get("/my", isAuthenticated, getMyTask); //all task
 
@@ -78,5 +77,3 @@ router.post("/chatbot", async (req, res) => {
 //   .route("/:id")
 //   .put(isAuthenticated, updateTask)
 //   .delete(isAuthenticated, deleteTask);
-
-export default router;
