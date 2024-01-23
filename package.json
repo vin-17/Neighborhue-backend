@@ -2,7 +2,7 @@
   "name": "neighborhue-backend",
   "version": "1.0.0",
   "description": "",
-  "type":"module",
+  "type": "module",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -14,6 +14,7 @@
   "dependencies": {
     "dotenv": "^16.3.2",
     "express": "^4.18.2",
-    "mongoose": "^8.1.0"
+    "mongoose": "^8.1.0",
+    "openai": "^4.25.0"
   }
 }
