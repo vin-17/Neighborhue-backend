@@ -8,6 +8,10 @@ dotenv.config();
 connectDB();
 const PORT = 5000;
 
+app.get('/', function(req, res) {
+    res.send('Hello, World!');
+  });
+
 app.listen(PORT, () => {
     console.log("\n----------------------------------------------------------------------------------");
     console.log(
@@ -16,6 +20,3 @@ app.listen(PORT, () => {
     console.log("----------------------------------------------------------------------------------\n");
 });
 
-app.get('/', function(req, res) {
-    res.send('Hello, World!');
-  });
