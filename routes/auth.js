@@ -7,15 +7,26 @@ const router = express.Router();
 const CLIENT_URL = "https://neighborhue-frontend.vercel.app";
 
 // login success
+// router.get("/login/success", (req, res) => {
+//     if (req.user) {
+//       res.status(200).json({
+//         success: true,
+//         message: "successfull",
+//         user: req.user,
+//         //   cookies: req.cookies
+//       });
+//     }
+// });
 router.get("/login/success", (req, res) => {
-    if (req.user) {
-      res.status(200).json({
-        success: true,
-        message: "successfull",
-        user: req.user,
-        //   cookies: req.cookies
-      });
-    }
+  if (req.user) {
+    res.setHeader('Access-Control-Allow-Origin', 'https://neighborhue-frontend.vercel.app');
+    res.status(200).json({
+      success: true,
+      message: "successfull",
+      user: req.user,
+      //   cookies: req.cookies
+    });
+  }
 });
   
 //login fail
