@@ -4,7 +4,11 @@ import dotenv from 'dotenv';
 import cors from "cors";
 dotenv.config();
 
-app.use(cors());
+app.use(cors({
+    origin: "https://neighborhue-frontend.vercel.app",
+    methods: "GET,PUT,PATCH,POST,DELETE",
+    credentials: true,
+  }));
 
 
 

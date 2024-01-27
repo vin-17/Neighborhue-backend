@@ -14,6 +14,12 @@ import './passport.js';
 export const app = express();
 
 // Using Middlewares
+app.use(cors({
+  origin: "https://neighborhue-frontend.vercel.app",
+  methods: "GET,PUT,PATCH,POST,DELETE",
+  credentials: true,
+}));
+
 app.use(
   cookieSession({
     name: "session",
@@ -24,11 +30,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(cors({
-  origin: "https://neighborhue-frontend.vercel.app",
-  methods: "GET,PUT,PATCH,POST,DELETE",
-  credentials: true,
-}));
 app.use(express.json());
 
 
