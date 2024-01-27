@@ -25,7 +25,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: "https://neighborhue-frontend.vercel.app",
   methods: "GET,PUT,PATCH,POST,DELETE",
   credentials: true,
 }));
