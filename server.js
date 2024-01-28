@@ -3,6 +3,7 @@ import { connectDB } from "./data/database.js";
 import dotenv from 'dotenv';
 import cors from "cors";
 dotenv.config();
+connectDB();
 
 // app.use(cors({
 //     origin: "https://neighborhue-frontend.vercel.app",
