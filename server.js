@@ -1,25 +1,10 @@
 import { app } from "./app.js";
 import { connectDB } from "./data/database.js";
 import dotenv from 'dotenv';
-import cors from "cors";
 dotenv.config();
 connectDB();
 
-// app.use(cors({
-//     origin: "https://neighborhue-frontend.vercel.app",
-//     methods: "GET,PUT,PATCH,POST,DELETE",
-//     credentials: true,
-//   }));
-
-app.use(cors());
-
-
-connectDB();
 const PORT = 5000;
-
-app.get('/', function(req, res) {
-    res.send('Hello, World!');
-  });
 
 app.listen(PORT, () => {
     console.log("\n----------------------------------------------------------------------------------");
