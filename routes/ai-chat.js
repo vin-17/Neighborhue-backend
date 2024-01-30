@@ -13,7 +13,7 @@ const openaiAPI = new openai.OpenAI({ apiKey: OpenAIAPIKey });
 // Sample route to handle chatbot requests
 router.post("/chatbot", async (req, res) => {
   try {
-    const { message } = req.body;
+    const { message, location } = req.body;
 
     // Validate input
     if (!message) {
@@ -25,7 +25,7 @@ router.post("/chatbot", async (req, res) => {
         model: 'gpt-3.5-turbo',
         messages: [
           { role: 'system', content: 'You are a helpful assistant.' },
-          { role: 'user', content: `Write a response to the following message :  ${message}.` },
+          { role: 'user', content: `If the ${message} is not related to travel or leisure activities, respond with "Please enter a query related to travel or leisure activities." and end the conversation. Otherwise, if the query is related to travel or leisure activities, check if the location that is provided is a real location or not, if not a real location reply with "I am sorry but I am not able to recognise this location. Please enter a valid location", if it is a valid location then recommend activities and hangout places nearby based on the user's interests and preferences.` },
         ],
         temperature: 1,
         max_tokens: 75,
