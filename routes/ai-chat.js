@@ -25,7 +25,7 @@ router.post("/chatbot", async (req, res) => {
         model: 'gpt-3.5-turbo',
         messages: [
           { role: 'system', content: 'You are a helpful assistant.' },
-          { role: 'user', content: `i want to shift at ${formData.location} . please give all replies or suggestion to me text message - ${formData.problem} at ${formData.location}. Give answer according to the context donot go beyond that.` },
+          { role: 'user', content: `i want to shift at ${location} . please give all replies or suggestion to me text message - ${message} at ${location}. Give answer according to the context donot go beyond that.` },
         ],
         temperature: 1,
         max_tokens: 75,
