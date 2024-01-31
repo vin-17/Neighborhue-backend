@@ -28,7 +28,7 @@ router.post("/chatbot", async (req, res) => {
           { role: 'user', content: `i want to shift at ${location} . please give all replies or suggestion to me text message - ${message} at ${location}. Give answer according to the context donot go beyond that.` },
         ],
         temperature: 1,
-        max_tokens: 1000,
+        max_tokens: 500,
       });
 
     // Extract chatbot's reply from the API response
