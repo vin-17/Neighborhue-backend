@@ -20,8 +20,8 @@ const CLIENT_URL = "https://neighborhue-frontend.vercel.app";
 router.get("/login/success", (req, res) => {
   if (req.user) {
     // Set CORS headers
-    res.setHeader('Access-Control-Allow-Origin', 'https://neighborhue-frontend.vercel.app');
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    // res.setHeader('Access-Control-Allow-Origin', 'https://neighborhue-frontend.vercel.app');
+    // res.setHeader('Access-Control-Allow-Credentials', 'true');
     
     // Respond with success JSON
     res.status(200).json({
