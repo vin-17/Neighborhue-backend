@@ -1,6 +1,7 @@
 import express from "express";
 import openai from "openai";
 import dotenv from 'dotenv';
+import { useToken } from "../controller/user.js";
 
 dotenv.config();
 
@@ -13,7 +14,7 @@ const openaiAPI = new openai.OpenAI({ apiKey: OpenAIAPIKey });
 // Sample route to handle chatbot requests
 router.post("/chatbot", async (req, res) => {
   try {
-    const { message, location } = req.body;
+    const { message, location, userEmail } = req.body;
 
     // Validate input
     if (!message) {
@@ -35,12 +36,55 @@ router.post("/chatbot", async (req, res) => {
     if (completions.choices && completions.choices.length > 0) {
         // const response = completions.choices[0].text;
         const response = completions.choices[0].message.content;
-        console.log(" --- response -- -- -- ")
-        console.log(response);
-        console.log(" --- completions -- -- -- ")
-        console.log(completions);
+        // console.log(" --- response -- -- -- ")
+        // console.log(response);
+        // console.log(" --- completions -- -- -- ")
+        // console.log(completions);
+        async function updateToken(email) {
+          try {
+            const update_response = await useToken({ body: { email } }); // Pass only the request object
+            console.log("\nthis is update response:: \n", update_response);
+            return update_response;
+          } catch (error) {
+            console.error("Error updating response from updateToken :", error);
+            throw error;
+          }
+        }
+
         
-        res.status(200).json({ message: response });
+        try {
+          const update_res = await updateToken(userEmail);
+          if (update_res.error) {
+            // Handle error response
+            return res.status(400).json({ message: update_res.error });
+          }
+          console.log("\nResponse------updateToken------:  ", update_res);
+          res.status(200).json({ 
+            message: response,
+            user: {
+              email: update_res.user.email,
+              tokens_available: update_res.user.tokens_available,
+              tokens_used: update_res.user.tokens_used,
+            },
+          });
+        } catch (error) {
+          console.error("\nError------updateToken-----:  ", error);
+          res.status(500).json({ 
+            message: "failed to update user data.",
+          });
+        }
+        // const update_response = await useToken({ body: { email: userEmail } }, res);
+        // console.log("\ngenerated from here ----------:  ", update_response.message);
+
+
+        // res.status(200).json({ 
+        //   message: response,
+        //   // user: {
+        //   //   email: user.email,
+        //   //   tokens_available: user.tokens_available,
+        //   //   tokens_used: user.tokens_used,
+        //   // },
+        // });
       } else {
         console.log("this loop --- -- -- ")
         res.status(500).json({ error: 'Invalid response from OpenAI API' });
