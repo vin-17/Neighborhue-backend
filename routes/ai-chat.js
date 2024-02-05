@@ -74,18 +74,7 @@ router.post("/chatbot", async (req, res) => {
             message: "failed to update user data.",
           });
         }
-        // const update_response = await useToken({ body: { email: userEmail } }, res);
-        // console.log("\ngenerated from here ----------:  ", update_response.message);
-
-
-        // res.status(200).json({ 
-        //   message: response,
-        //   // user: {
-        //   //   email: user.email,
-        //   //   tokens_available: user.tokens_available,
-        //   //   tokens_used: user.tokens_used,
-        //   // },
-        // });
+        
       } else {
         console.log("this loop --- -- -- ")
         res.status(500).json({ error: 'Invalid response from OpenAI API' });
@@ -115,10 +104,4 @@ router.post("/chatbot", async (req, res) => {
 
 
 export default router;
-// router.post("/new", isAuthenticated, newTask); //create task
-// router.get("/my", isAuthenticated, getMyTask); //all task
 
-// router
-//   .route("/:id")
-//   .put(isAuthenticated, updateTask)
-//   .delete(isAuthenticated, deleteTask);

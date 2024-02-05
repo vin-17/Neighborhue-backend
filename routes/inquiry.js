@@ -34,9 +34,3 @@ export default router;
 
 
 
-// router.get("/my", isAuthenticated, getMyTask); //all task
-
-// router
-//   .route("/:id")
-//   .put(isAuthenticated, updateTask)
-//   .delete(isAuthenticated, deleteTask);

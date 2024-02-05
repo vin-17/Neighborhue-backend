@@ -13,10 +13,4 @@ const userSchema = new mongoose.Schema({
 
 
 export const User = mongoose.model('User', userSchema);
-// const userSchema = new mongoose.Schema({
-//   username: { type: String },
-//   email: { type: String, unique: true, required: true },
-//   profilePic: { type: String }, // Assuming the profile picture is a URL
-// });
 
-// export const Inquiry = mongoose.model("Inquiry", schema);
