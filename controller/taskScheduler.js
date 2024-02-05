@@ -8,14 +8,14 @@ const updateTokensForFreeUsers = async () => {
     const midnight = new Date(now);
     midnight.setHours(24, 0, 0, 0); // Set to midnight of the current day
 
-    // Update tokens_available to 3 for free users where it's currently less than 3 and lastUpdate is before midnight
+    // Update daily_tokens_available to 3 for free users where it's currently less than 3 and lastUpdate is before midnight
     await User.updateMany(
       {
-        tokens_available: { $lt: 3 },
+        daily_tokens_available: { $lt: 3 },
         is_premium: false, // Assuming free users are marked with is_premium: false
         lastUpdate: { $lt: midnight }
       },
-      { $set: { tokens_available: 3, lastUpdate: now } }
+      { $set: { daily_tokens_available: 3, lastUpdate: now } }
     );
 
     console.log("Tokens updated successfully.");

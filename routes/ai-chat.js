@@ -63,7 +63,8 @@ router.post("/chatbot", async (req, res) => {
             message: response,
             user: {
               email: update_res.user.email,
-              tokens_available: update_res.user.tokens_available,
+              daily_tokens_available: update_res.user.daily_tokens_available,
+              purchased_tokens_available: update_res.user.purchased_tokens_available,
               tokens_used: update_res.user.tokens_used,
             },
           });

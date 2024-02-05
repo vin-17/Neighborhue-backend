@@ -14,7 +14,8 @@ export const register = async (req, res) => {
         username,
         email,
         profilePic,
-        tokens_available: 3, // Initial value for tokens_available
+        daily_tokens_available: 3, // Initial value for tokens_available
+        purchased_tokens_available: 0,
         tokens_used: 0, // Initial value for tokens_used
         is_premium: false // Initial value for is_premium
       });
@@ -27,7 +28,8 @@ export const register = async (req, res) => {
         email: existingUser.email,
         username: existingUser.username,
         profilePic: existingUser.profilePic,
-        tokens_available: existingUser.tokens_available,
+        daily_tokens_available: existingUser.daily_tokens_available,
+        purchased_tokens_available: existingUser.purchased_tokens_available,
         tokens_used: existingUser.tokens_used,
         is_premium: existingUser.is_premium,
         // Add other fields as needed
@@ -52,12 +54,22 @@ export const useToken = async (req) => { // Removed 'res' parameter
     }
 
     // Check if the user has any tokens available
-    if (user.tokens_available <= 0) {
+    if (user.daily_tokens_available <= 0) {
       return { error: 'No tokens available please update your package to use more' }; // Return an error object instead of sending a response
     }
 
     // Update the user's token counts
-    user.tokens_available -= 1;
+    // user.daily_tokens_available -= 1;
+    if(user.daily_tokens_available <=0 && user.purchased_tokens_available > 0){
+      user.purchased_tokens_available--;
+    }
+
+    if(user.daily_tokens_available > 0 ){
+      user.daily_tokens_available--;
+    }
+
+    
+
     user.tokens_used += 1;
     await user.save();
 
@@ -67,7 +79,8 @@ export const useToken = async (req) => { // Removed 'res' parameter
     return {
       user: {
         email: user.email,
-        tokens_available: user.tokens_available,
+        daily_tokens_available: user.daily_tokens_available,
+        purchased_tokens_available: user.purchased_tokens_available,
         tokens_used: user.tokens_used,
       },
     };
