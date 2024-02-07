@@ -112,10 +112,10 @@ router.post('/checkout-session-onetime', async (req, res) => {
                 const amountpaid = data.data.object.amount_total;
                 // Update your database with the successful payment
                 if(amountpaid == 199){
-                    await onetimePurchaseUpdate({email, paymentIntentId});
+                    await onetimePurchaseUpdate(email, paymentIntentId);
                 }
                 if(amountpaid == 999){
-                    await PremiumPurchaseUpdate({email, paymentIntentId});
+                    await PremiumPurchaseUpdate(email, paymentIntentId);
                 }
                 break;
             default:
