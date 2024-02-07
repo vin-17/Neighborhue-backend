@@ -19,10 +19,11 @@ export const app = express();
 
 // Using Middlewares
 const frontend_url = "https://neighborhue-frontend.vercel.app";
+//http://localhost:3000
 
 app.use(express.json());
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: "https://neighborhue-frontend.vercel.app",
   methods: ["GET,PUT,PATCH,POST,DELETE"],
   credentials: true,
   preflightContinue: true,

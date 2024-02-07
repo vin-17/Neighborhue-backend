@@ -11,7 +11,7 @@ export const newInquiry = async (req, res) => {
         userEmail,
         problemDescription,
       });
-      // res.setHeader('Access-Control-Allow-Origin', 'https://neighborhue-frontend.vercel.app');
+      res.setHeader('Access-Control-Allow-Origin', 'https://neighborhue-frontend.vercel.app');
       res.status(201).json({
         success: true,
         message: "Inquiry sent Successfully",
