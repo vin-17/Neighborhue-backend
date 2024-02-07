@@ -92,9 +92,9 @@ export const useToken = async (req) => { // Removed 'res' parameter
 
 
 //function for onetime purchase update in database
-export const onetimePurchaseUpdate = async (req) => { // Removed 'res' parameter
+export const onetimePurchaseUpdate =async (email, paymentIntentId) => { // Removed 'res' parameter
   try {
-    const { email } = req.body;
+    // const { email } = req.body;
 
     // Find the user based on the email
     const user = await User.findOne({ email });
@@ -129,9 +129,9 @@ export const onetimePurchaseUpdate = async (req) => { // Removed 'res' parameter
 };
 
 
-export const PremiumPurchaseUpdate = async (req) => { // Removed 'res' parameter
+export const PremiumPurchaseUpdate = async (email, paymentIntentId) => { // Removed 'res' parameter
   try {
-    const { email } = req.body;
+    // const { email } = req.body;
 
     // Find the user based on the email
     const user = await User.findOne({ email });
