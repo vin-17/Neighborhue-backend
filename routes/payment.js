@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from 'dotenv';
-import { onetimePurchaseUpdate } from "../controller/user.js"; // Import the function to update user data
+import { PremiumPurchaseUpdate, onetimePurchaseUpdate } from "../controller/user.js"; // Import the function to update user data
 import Stripe from 'stripe';
 dotenv.config();
 
@@ -107,11 +107,11 @@ router.post('/checkout-session-onetime', async (req, res) => {
                 const email = data.data.object.customer_email;
                 const amountpaid = data.data.object.amount_total;
                 // Update your database with the successful payment
-                if(amountpaid === 199){
+                if(amountpaid == 199){
                     await onetimePurchaseUpdate({email, paymentIntentId});
                 }
-                if(amountpaid === 999){
-                    await onetimePurchaseUpdate({email, paymentIntentId});
+                if(amountpaid == 999){
+                    await PremiumPurchaseUpdate({email, paymentIntentId});
                 }
                 break;
             default:
