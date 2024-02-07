@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
   purchased_tokens_available: { type: Number, default: 0 }, // Default value set to 3
   tokens_used: { type: Number, default: 0 }, // Default value set to 0
   is_premium: { type: Boolean, default: false }, // Default value set to false
+  payment_date: { type: Date } // Add payment_date field
 });
 
 

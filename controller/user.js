@@ -90,3 +90,40 @@ export const useToken = async (req) => { // Removed 'res' parameter
   }
 };
 
+
+//function for onetime purchase update in database
+export const onetimePurchaseUpdate = async (req) => { // Removed 'res' parameter
+  try {
+    const { email } = req.body;
+
+    // Find the user based on the email
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return { error: 'User not found' }; // Return an error object instead of sending a response
+    }
+
+    // Check if the user payment success
+    
+
+    
+
+    user.purchased_tokens_available += 8;
+    await user.save();
+
+    console.log("token used successfully");
+
+    // Return the updated user object
+    return {
+      user: {
+        email: user.email,
+        daily_tokens_available: user.daily_tokens_available,
+        purchased_tokens_available: user.purchased_tokens_available,
+        tokens_used: user.tokens_used,
+      },
+    };
+  } catch (error) {
+    console.error('Error updating onetime purchase token:', error);
+    return { error: 'Internal server error : user can not be updated' }; // Return an error object instead of sending a response
+  }
+};

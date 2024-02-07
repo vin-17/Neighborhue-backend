@@ -3,13 +3,17 @@ import chatRouter from "./routes/ai-chat.js";
 import inquiryRouter from "./routes/inquiry.js";
 import authRouter from "./routes/auth.js";
 import userRouter from "./routes/user.js";
+import paymentRouter from "./routes/payment.js"
 import cors from "cors";
 import cookieSession from "cookie-session";
 import passport from "passport";
 import './passport.js';
+import cron from 'node-cron'
 
 // import passportSetup from "./passport.js";
 // import { passportSetup } from "./passport.js";
+
+// cron.schedule('* * * * *', hello);
 
 export const app = express();
 
@@ -37,11 +41,16 @@ app.use(passport.session());
 
 
 
+
+
+
 // Using routes
+
 app.use("/api/ai-chat", chatRouter);
 app.use("/api/inquiry", inquiryRouter);
 app.use("/auth", authRouter);
 app.use("/register", userRouter);
+app.use("/api/payment", paymentRouter);
 
 app.get("/", (req, res) => {
   res.send("Nice working");

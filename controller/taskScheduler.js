@@ -24,12 +24,26 @@ const updateTokensForFreeUsers = async () => {
   }
 };
 
+const updatePremiumUsers = async () => {
+    try {
+        // Find users whose premium subscription has expired (payment date is older than 30 days)
+        const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+        const expiredUsers = await User.find({ is_premium: true, payment_date: { $lt: thirtyDaysAgo } });
+    
+        // Update is_premium to false for expired users
+        await Promise.all(expiredUsers.map(async (user) => {
+          user.is_premium = false;
+          await user.save();
+        }));
+      } catch (error) {
+        console.error('Error processing premium subscriptions:', error);
+      }
+  };
+
 // Schedule the function to run at midnight IST every day
-cron.schedule("30 18 * * *", async () => {
+cron.schedule("0 0 * * *", async () => {
     await updateTokensForFreeUsers();
+    await updatePremiumUsers();
   });
 
-// // Schedule the function to run at midnight every day
-// cron.schedule("0 0 * * *", async () => {
-//   await updateTokensForFreeUsers();
-// });
+
