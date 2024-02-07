@@ -94,9 +94,13 @@ router.post('/checkout-session-onetime', async (req, res) => {
 
 
   router.post('/webhook', async (req, res) => {
-    console.log("\nwebhook req body --->", req.body);
-    const data = req.body; // doubt on this
-    //steps.trigger.event.body.type
+    console.log("\nwebhook req body --->");
+    const data = req.body; 
+    console.log("type ", data.type);
+    console.log("email ", data.data.object.customer_email);
+    console.log("amountpaid ", data.data.object.amount_total);
+    // console.log("type ", data.type);
+
     try {
         switch (data.type) {
             case 'checkout.session.completed':
