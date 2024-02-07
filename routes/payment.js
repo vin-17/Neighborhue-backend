@@ -36,7 +36,7 @@ router.post('/checkout-session-onetime', async (req, res) => {
               unit_amount: amount,
             },
             quantity: 1,
-          },
+          }
         ],
         mode: 'payment',
         success_url: 'http://localhost:3000', // Update with your success URL
