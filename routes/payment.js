@@ -39,8 +39,8 @@ router.post('/checkout-session-onetime', async (req, res) => {
           }
         ],
         mode: 'payment',
-        success_url: 'http://localhost:3000', // Update with your success URL
-        cancel_url: 'http://localhost:3000/register', // Update with your cancel URL
+        success_url: 'https://neighborhue-frontend.vercel.app/', // Update with your success URL
+        cancel_url: 'https://neighborhue-frontend.vercel.app/pricing', // Update with your cancel URL
         customer_email: email,
       });
   
@@ -95,17 +95,17 @@ router.post('/checkout-session-onetime', async (req, res) => {
 
   router.post('/webhook', async (req, res) => {
     console.log("\nwebhook req body --->", req.body);
-    const event = req.body.event; // doubt on this
+    const data = req.body; // doubt on this
     //steps.trigger.event.body.type
     try {
-        switch (event.body.type) {
+        switch (data.type) {
             case 'checkout.session.completed':
 
-                const session = event.body.data.object;
-                // Extract relevant information from the session object
-                const paymentIntentId = session.payment_intent;
-                const email = session.customer_email;
-                const amountpaid = session.amount_total;
+                
+                // Extract relevant information from the data object
+                const paymentIntentId = data.data.object.payment_intent;
+                const email = data.data.object.customer_email;
+                const amountpaid = data.data.object.amount_total;
                 // Update your database with the successful payment
                 if(amountpaid === 199){
                     await onetimePurchaseUpdate({email, paymentIntentId});
@@ -116,7 +116,7 @@ router.post('/checkout-session-onetime', async (req, res) => {
                 break;
             default:
                 // Unexpected event type
-                console.log(`Unhandled event type: ${event.type}`);
+                console.log(`Unhandled event type: ${data.type}`);
         }
 
         // Return a 200 response to acknowledge receipt of the event
