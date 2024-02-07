@@ -41,6 +41,38 @@ export const register = async (req, res) => {
   }
 };
 
+export const getUser = async (req, res) => {
+  try {
+    const { email } = req.body;
+    
+    // Find the user based on the email
+    let existingUser = await User.findOne({ email });
+    
+    if (!existingUser) {
+      // If user does not exist, create a new user with initial values
+      console.log("user is not in the database !! ");
+    }
+    
+    // Respond with success message and user data
+    res.status(201).json({
+      message: 'User registered successfully',
+      user: {
+        email: existingUser.email,
+        username: existingUser.username,
+        profilePic: existingUser.profilePic,
+        daily_tokens_available: existingUser.daily_tokens_available,
+        purchased_tokens_available: existingUser.purchased_tokens_available,
+        tokens_used: existingUser.tokens_used,
+        is_premium: existingUser.is_premium,
+        // Add other fields as needed
+      },
+    });
+  } catch (error) {
+    console.error('Error getting user:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 // Function to use one token for a user
 export const useToken = async (req) => { // Removed 'res' parameter
   try {

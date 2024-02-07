@@ -53,6 +53,7 @@ app.use("/api/inquiry", inquiryRouter);
 app.use("/auth", authRouter);
 app.use("/register", userRouter);
 app.use("/api/payment", paymentRouter);
+app.use("/register", getUser);
 
 app.get("/", (req, res) => {
   res.send("Nice working");
