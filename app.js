@@ -7,9 +7,9 @@ import paymentRouter from "./routes/payment.js"
 import cors from "cors";
 import cookieSession from "cookie-session";
 import passport from "passport";
-import './passport.js';
-import cron from 'node-cron'
+import "./controller/taskScheduler.js"
 
+// import './passport.js';
 // import passportSetup from "./passport.js";
 // import { passportSetup } from "./passport.js";
 

@@ -54,22 +54,22 @@ export const useToken = async (req) => { // Removed 'res' parameter
     }
 
     // Check if the user has any tokens available
-    if (user.daily_tokens_available <= 0) {
-      return { error: 'No tokens available please update your package to use more' }; // Return an error object instead of sending a response
+    if(!user.is_premium){
+      if (user.daily_tokens_available <= 0) {
+        return { error: 'No tokens available please update your package to use more' }; // Return an error object instead of sending a response
+      }
+  
+      // Update the user's token counts
+      // user.daily_tokens_available -= 1;
+      if(user.daily_tokens_available <=0 && user.purchased_tokens_available > 0){
+        user.purchased_tokens_available--;
+      }
+  
+      if(user.daily_tokens_available > 0 ){
+        user.daily_tokens_available--;
+      }
     }
-
-    // Update the user's token counts
-    // user.daily_tokens_available -= 1;
-    if(user.daily_tokens_available <=0 && user.purchased_tokens_available > 0){
-      user.purchased_tokens_available--;
-    }
-
-    if(user.daily_tokens_available > 0 ){
-      user.daily_tokens_available--;
-    }
-
     
-
     user.tokens_used += 1;
     await user.save();
 
@@ -107,7 +107,7 @@ export const onetimePurchaseUpdate = async (req) => { // Removed 'res' parameter
     
 
     
-
+    user.payment_date = Date.now();
     user.purchased_tokens_available += 8;
     await user.save();
 
@@ -120,6 +120,40 @@ export const onetimePurchaseUpdate = async (req) => { // Removed 'res' parameter
         daily_tokens_available: user.daily_tokens_available,
         purchased_tokens_available: user.purchased_tokens_available,
         tokens_used: user.tokens_used,
+      },
+    };
+  } catch (error) {
+    console.error('Error updating onetime purchase token:', error);
+    return { error: 'Internal server error : user can not be updated' }; // Return an error object instead of sending a response
+  }
+};
+
+
+export const PremiumPurchaseUpdate = async (req) => { // Removed 'res' parameter
+  try {
+    const { email } = req.body;
+
+    // Find the user based on the email
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return { error: 'User not found' }; // Return an error object instead of sending a response
+    }
+
+    user.is_premium = true;
+    user.payment_date = Date.now();
+    await user.save();
+
+    console.log("premium updated successfully");
+
+    // Return the updated user object
+    return {
+      user: {
+        email: user.email,
+        daily_tokens_available: user.daily_tokens_available,
+        purchased_tokens_available: user.purchased_tokens_available,
+        tokens_used: user.tokens_used,
+        is_premium: user.is_premium,
       },
     };
   } catch (error) {
