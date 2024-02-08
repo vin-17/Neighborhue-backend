@@ -2,6 +2,7 @@ import express from "express";
 import openai from "openai";
 import dotenv from 'dotenv';
 import { useToken } from "../controller/user.js";
+import User from "../models/user.js"
 
 dotenv.config();
 
