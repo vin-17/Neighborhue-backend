@@ -42,6 +42,7 @@ export const register = async (req, res) => {
 };
 
 export const getUser = async (req, res) => {
+  console.log(" get User started ... ");
   try {
     const { email } = req.body;
     
