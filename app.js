@@ -26,7 +26,7 @@ app.use(cors({
   origin: "https://neighborhue-frontend.vercel.app",
   methods: ["GET,PUT,PATCH,POST,DELETE"],
   credentials: true,
-  preflightContinue: true,
+  // preflightContinue: true,
 }));
 // app.use(cors());
 
