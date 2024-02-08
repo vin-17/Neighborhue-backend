@@ -78,7 +78,7 @@ export const getUser = async (req, res) => {
 // Function to use one token for a user
 export const useToken = async (req) => { // Removed 'res' parameter
   try {
-    const { email } = req.body;
+    const { email, message, response } = req.body;
 
     // Find the user based on the email
     const user = await User.findOne({ email });
@@ -95,11 +95,11 @@ export const useToken = async (req) => { // Removed 'res' parameter
           { $push: { 
               chatHistory: { 
                 role: 'user', 
-                content: req.body.message 
+                content: message 
               }, 
               chatHistory: { 
                 role: 'chatbot', 
-                content: req.body.chatbotResponse 
+                content: response 
               } 
             } 
           },

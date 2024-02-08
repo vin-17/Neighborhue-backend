@@ -45,7 +45,7 @@ router.post("/chatbot", async (req, res) => {
 
         async function updateToken(email) {
           try {
-            const update_response = await useToken({ body: { email } }); // Pass only the request object
+            const update_response = await useToken({ body: { email, message, response } }); // Pass only the request object
             console.log("\nthis is update response:: \n", update_response);
             return update_response;
           } catch (error) {
