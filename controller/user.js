@@ -96,13 +96,16 @@ export const useToken = async (req) => { // Removed 'res' parameter
               chatHistory: { 
                 role: 'user', 
                 content: message 
-              }, 
-              chatHistory: { 
-                role: 'chatbot', 
-                content: response 
-              } 
-            } 
+              }
+            }
           },
+          { $push: { 
+            chatHistory: { 
+              role: 'chatbot', 
+              content: response 
+            } 
+          } 
+        },
           { new: true } // Return the updated document
         )
       }
