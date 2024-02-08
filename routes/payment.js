@@ -79,8 +79,8 @@ router.post('/checkout-session-onetime', async (req, res) => {
           },
         ],
         mode: 'payment',
-        success_url: 'http://localhost:3000', // Update with your success URL
-        cancel_url: 'http://localhost:3000/pricing', // Update with your cancel URL
+        success_url: 'https://neighborhue-frontend.vercel.app/', // Update with your success URL
+        cancel_url: 'https://neighborhue-frontend.vercel.app/pricing', // Update with your cancel URL
         customer_email: email,
       });
   
