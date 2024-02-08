@@ -40,6 +40,9 @@ router.post("/chatbot", async (req, res) => {
         // console.log(response);
         // console.log(" --- completions -- -- -- ")
         // console.log(completions);
+        // Check if user is premium
+        
+
         async function updateToken(email) {
           try {
             const update_response = await useToken({ body: { email } }); // Pass only the request object
@@ -50,8 +53,6 @@ router.post("/chatbot", async (req, res) => {
             throw error;
           }
         }
-
-        
         try {
           const update_res = await updateToken(userEmail);
           if (update_res.error) {
@@ -98,6 +99,24 @@ router.post("/chatbot", async (req, res) => {
   }
 });
 
+router.post("/chathistory", async (req, res) => {
+  try {
+    const { email } = req.body.user;
+
+    // Find the user by email
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Return the chat history from the user document
+    res.status(200).json({ chats: user.chatHistory });
+  } catch (error) {
+    console.error('Error fetching chat history:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 
 

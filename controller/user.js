@@ -87,6 +87,25 @@ export const useToken = async (req) => { // Removed 'res' parameter
     }
 
     // Check if the user has any tokens available
+    if(user.is_premium){
+      // Update user's chatHistory
+        const updatedUser = await User.findOneAndUpdate(
+          { email }, // Find the user by email
+          { $push: { 
+              chatHistory: { 
+                role: 'user', 
+                content: req.body.message 
+              }, 
+              chatHistory: { 
+                role: 'chatbot', 
+                content: req.body.chatbotResponse 
+              } 
+            } 
+          },
+          { new: true } // Return the updated document
+        )
+      }
+
     if(!user.is_premium){
       if (user.daily_tokens_available <= 0) {
         return { error: 'No tokens available please update your package to use more' }; // Return an error object instead of sending a response
