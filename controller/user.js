@@ -93,19 +93,15 @@ export const useToken = async (req) => { // Removed 'res' parameter
         const updatedUser = await User.findOneAndUpdate(
           { email }, // Find the user by email
           { $push: { 
-              chatHistory: { 
-                role: 'user', 
-                content: message 
-              }
-            }
-          },
-          { $push: { 
             chatHistory: { 
-              role: 'chatbot', 
-              content: response 
+              $each: [
+                { role: 'user', content: message },
+                { role: 'chatbot', content: response }
+              ]
             } 
           } 
-        },
+          },
+          
           { new: true } // Return the updated document
         )
       }
