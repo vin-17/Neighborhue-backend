@@ -8,6 +8,8 @@ import cors from "cors";
 import cookieSession from "cookie-session";
 import passport from "passport";
 import "./controller/taskScheduler.js"
+import Stripe from "stripe";
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // import './passport.js';
 // import passportSetup from "./passport.js";
@@ -21,14 +23,66 @@ export const app = express();
 const frontend_url = "https://neighborhue-frontend.vercel.app";
 //http://localhost:3000
 
+app.use('/api/payment/webhook', express.raw({ type: 'application/json' }));
+
+app.post(
+  "/api/payment/webhook",
+  express.json({ type: "application/json" }),
+  async (req, res) => {
+    let data;
+    let eventType;
+
+    let webhookSecret;
+    webhookSecret = process.env.STRIPE_WEB_HOOK;
+
+    if (webhookSecret) {
+      let event;
+      let signature = req.headers["stripe-signature"];
+
+      try {
+        event = stripe.webhooks.constructEvent(
+          req.body,
+          signature,
+          webhookSecret
+        );
+      } catch (err) {
+        console.log(`⚠️  Webhook signature verification failed:  ${err}`);
+        return res.sendStatus(400);
+      }
+      data = event.data.object;
+      eventType = event.type;
+    } else {
+
+      data = req.body.data.object;
+      eventType = req.body.type;
+    }
+
+    if (eventType === "checkout.session.completed") {
+      stripe.customers
+        .retrieve(data.customer)
+        .then(async (customer) => {
+          try {
+            console.log(customer, data);
+          } catch (err) {
+            console.log(typeof createOrder);
+            console.log(err);
+          }
+        })
+        .catch((err) => console.log(err.message));
+    }
+
+    res.status(200);
+  }
+);
+
 app.use(express.json());
-app.use(cors({
-  origin: "https://neighborhue-frontend.vercel.app",
-  methods: ["GET,PUT,PATCH,POST,DELETE"],
-  credentials: true,
-  preflightContinue: true,
-}));
-// app.use(cors());
+// app.use(cors({
+//   origin: "https://neighborhue-frontend.vercel.app",
+//   methods: ["GET,PUT,PATCH,POST,DELETE"],
+//   credentials: true,
+//   preflightContinue: true,
+// }));
+app.use(cors());
 
 app.use(
   cookieSession({

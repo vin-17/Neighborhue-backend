@@ -8,8 +8,11 @@ const PORT = 5000;
 
 app.listen(PORT, () => {
     console.log("\n----------------------------------------------------------------------------------");
+    // console.log(
+    //     `Server is working on port:${PORT} in ${process.env.NODE_ENV} Mode`
+    // );
     console.log(
-        `Server is working on port:${PORT} in ${process.env.NODE_ENV} Mode`
+        `Server is working on port:${PORT}`
     );
     console.log("----------------------------------------------------------------------------------\n");
 });
