@@ -29,19 +29,23 @@ app.use(cors({
   credentials: true,
   // preflightContinue: true,
 }));
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "https://neighborhue-frontend.vercel.app");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
+// app.options('*', cors());
 
-app.options('*', cors());
+// // app.use(cors());
 
-// app.use(cors());
-
-app.use(
-  cookieSession({
-    name: "session",
-    keys: ["neighborhue-cookie"],
-    maxAge: 24 * 60 * 60 * 100,
-  })
-);
+// app.use(
+//   cookieSession({
+//     name: "session",
+//     keys: ["neighborhue-cookie"],
+//     maxAge: 24 * 60 * 60 * 100,
+//   })
+// );
 
 // app.use(passport.initialize());
 // app.use(passport.session());
