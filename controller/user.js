@@ -107,7 +107,7 @@ export const useToken = async (req) => { // Removed 'res' parameter
       }
 
     if(!user.is_premium){
-      if (user.daily_tokens_available <= 0) {
+      if (user.daily_tokens_available <= 0 && user.purchased_tokens_available <= 0) {
         return { error: 'No tokens available please update your package to use more' }; // Return an error object instead of sending a response
       }
   
