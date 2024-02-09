@@ -60,8 +60,9 @@ router.post("/chatbot", async (req, res) => {
             // Handle error response
             return res.status(400).json({ message: update_res.error });
           }
-          console.log("\nResponse------updateToken------:  ", update_res);
+          // console.log("\nResponse------updateToken------:  ", update_res);
           res.setHeader('Access-Control-Allow-Origin', 'https://neighborhue-frontend.vercel.app');
+          res.setHeader('Access-Control-Allow-Credentials', 'true');
           res.status(200).json({ 
             message: response,
             user: {
@@ -72,7 +73,7 @@ router.post("/chatbot", async (req, res) => {
             },
           });
         } catch (error) {
-          console.error("\nError------updateToken-----:  ", error);
+          // console.error("\nError------updateToken-----:  ", error);
           res.setHeader('Access-Control-Allow-Origin', 'https://neighborhue-frontend.vercel.app');
           res.status(500).json({ 
             message: "failed to update user data.",
