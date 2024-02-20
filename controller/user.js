@@ -4,7 +4,7 @@ import { User } from "../models/user.js";
 export const register = async (req, res) => {
   try {
     const { username, email, profilePic, token } = req.body;
-    
+
     // Find the user based on the email
     let existingUser = await User.findOne({ email });
     
@@ -20,8 +20,6 @@ export const register = async (req, res) => {
         is_premium: false // Initial value for is_premium
       });
     }
-    
-    // Respond with success message and user data
     res.status(201).json({
       message: 'User registered successfully',
       user: {
@@ -32,7 +30,6 @@ export const register = async (req, res) => {
         purchased_tokens_available: existingUser.purchased_tokens_available,
         tokens_used: existingUser.tokens_used,
         is_premium: existingUser.is_premium,
-        // Add other fields as needed
       },
     });
   } catch (error) {
@@ -155,10 +152,6 @@ export const onetimePurchaseUpdate =async (email, paymentIntentId) => { // Remov
       return { error: 'User not found' }; // Return an error object instead of sending a response
     }
 
-    // Check if the user payment success
-    
-
-    
     user.payment_date = Date.now();
     user.purchased_tokens_available += 8;
     await user.save();
