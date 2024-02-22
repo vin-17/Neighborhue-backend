@@ -40,6 +40,28 @@ router.post("/chatbot", async (req, res) => {
       });
     }
 
+    // Extract chatbot's reply from the API response
+    // if (completions.choices && completions.choices.length > 0) {
+    //   // const response = completions.choices[0].text;
+    //   const response = completions.choices[0].message.content;
+    //   // console.log(" --- response -- -- -- ")
+    //   // console.log(response);
+    //   // console.log(" --- completions -- -- -- ")
+    //   // console.log(completions);
+    //   // Check if user is premium
+
+
+    //   async function updateToken(email) {
+    //     try {
+    //       const update_response = await useToken({ body: { email, message, response } }); // Pass only the request object
+    //       console.log("\nthis is update response:: \n", update_response);
+    //       return update_response;
+    //     } catch (error) {
+    //       console.error("Error updating response from updateToken :", error);
+    //       throw error;
+    //     }
+    //   }
+
     if (
       completions.choices &&
       completions.choices.length > 0 &&
