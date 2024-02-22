@@ -26,7 +26,7 @@ router.post("/chatbot", async (req, res) => {
         { role: "system", content: "You are a helpful assistant." },
         {
           role: "user",
-          content: `i want to shift at ${location}. please give all replies or suggestions to me text message - ${message} at ${location}. Give answers according to the context do not go beyond that.`,
+          content: `i want to shift at ${location}. please give all replies or suggestions to me text message - ${message} at ${location}. Give answers according to the context do not go beyond that. Please give elaborated response.`,
         },
       ],
       temperature: 1,
