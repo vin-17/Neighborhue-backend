@@ -30,7 +30,7 @@ router.post("/chatbot", async (req, res) => {
         },
       ],
       temperature: 1,
-      max_tokens: 200,
+      max_tokens: 299,
     });
     console.log(is_free_token);
     if (is_free_token) {
