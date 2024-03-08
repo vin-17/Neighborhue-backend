@@ -7,7 +7,7 @@ dotenv.config();
 
 const router = express.Router();
 
-
+const CLIENT_URL = `${process.env.FRONTEND_URL}`;
 
 router.get("/login/success", (req, res) => {
   if (req.user.user) {
