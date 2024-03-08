@@ -52,7 +52,7 @@ export const getUser = async (req, res) => {
     }
     
     // Respond with success message and user data
-    res.setHeader('Access-Control-Allow-Origin', 'https://neighborhue-frontend.vercel.app');
+    res.setHeader('Access-Control-Allow-Origin', `${process.env.FRONTEND_URL}`);
     res.status(201).json({
       message: 'User fetched successfully',
       user: {

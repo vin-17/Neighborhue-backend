@@ -1,8 +1,8 @@
 import express from "express";
 import openai from "openai";
-import dotenv from "dotenv";
 import { useToken } from "../controller/user.js";
 import { User } from "../models/user.js";
+import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -90,7 +90,7 @@ router.post("/chatbot", async (req, res) => {
 
         res.setHeader(
           "Access-Control-Allow-Origin",
-          "https://neighborhue-frontend.vercel.app"
+          `${process.env.FRONTEND_URL}`
         );
         res.setHeader("Access-Control-Allow-Credentials", "true");
         res.status(200).json({
@@ -106,7 +106,7 @@ router.post("/chatbot", async (req, res) => {
       } catch (error) {
         res.setHeader(
           "Access-Control-Allow-Origin",
-          "https://neighborhue-frontend.vercel.app"
+          `${process.env.FRONTEND_URL}`
         );
         res.status(500).json({
           message: "failed to update user data.",
@@ -142,7 +142,7 @@ router.post("/chathistory", async (req, res) => {
     // Return the chat history from the user document
     res.setHeader(
       "Access-Control-Allow-Origin",
-      "https://neighborhue-frontend.vercel.app"
+      `${process.env.FRONTEND_URL}`
     );
     res.status(200).json({ chats: user.chatHistory });
   } catch (error) {

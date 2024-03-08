@@ -1,5 +1,8 @@
 import express from "express";
 import { Inquiry } from "../models/inquiry.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 
 export const newInquiry = async (req, res) => {
@@ -11,7 +14,7 @@ export const newInquiry = async (req, res) => {
         userEmail,
         problemDescription,
       });
-      res.setHeader('Access-Control-Allow-Origin', 'https://neighborhue-frontend.vercel.app');
+      res.setHeader('Access-Control-Allow-Origin', `${process.env.FRONTEND_URL}`);
       res.status(201).json({
         success: true,
         message: "Inquiry sent Successfully",

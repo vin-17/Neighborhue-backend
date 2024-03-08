@@ -1,26 +1,18 @@
 import express from "express";
 import passport from "passport";
+import dotenv from "dotenv";
 
+dotenv.config();
 
 
 const router = express.Router();
-const CLIENT_URL = "https://neighborhue-frontend.vercel.app";
 
-// login success
-// router.get("/login/success", (req, res) => {
-//     if (req.user) {
-//       res.status(200).json({
-//         success: true,
-//         message: "successfull",
-//         user: req.user,
-//         //   cookies: req.cookies
-//       });
-//     }
-// });
+
+
 router.get("/login/success", (req, res) => {
   if (req.user.user) {
     // Set CORS headers
-    res.setHeader('Access-Control-Allow-Origin', 'https://neighborhue-frontend.vercel.app');
+    res.setHeader('Access-Control-Allow-Origin', `${process.env.FRONTEND_URL}`);
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     
     // Respond with success JSON
@@ -58,11 +50,6 @@ router.get("/google", passport.authenticate("google", {scope : ["profile"]}));
 router.post("/google/verify", (req, res) => {
     const { tokenId } = req.body;
   
-    // Perform verification of the tokenId (JWT) with Google here
-    // You may use a library like 'google-auth-library' or 'jsonwebtoken' for this purpose
-  
-    // After verification, you can handle the user data and respond accordingly
-    // For now, let's just respond with a success message
     res.json({ message: 'Token verification successful' });
   });
 

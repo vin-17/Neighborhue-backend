@@ -39,8 +39,8 @@ router.post('/checkout-session-onetime', async (req, res) => {
           }
         ],
         mode: 'payment',
-        success_url: 'https://neighborhue-frontend.vercel.app/', // Update with your success URL
-        cancel_url: 'https://neighborhue-frontend.vercel.app/pricing', // Update with your cancel URL
+        success_url: `${process.env.FRONTEND_URL}/`, // Update with your success URL
+        cancel_url: `${process.env.FRONTEND_URL}/pricing`, // Update with your cancel URL
         customer_email: email,
       });
   
@@ -79,8 +79,8 @@ router.post('/checkout-session-onetime', async (req, res) => {
           },
         ],
         mode: 'payment',
-        success_url: 'https://neighborhue-frontend.vercel.app/', // Update with your success URL
-        cancel_url: 'https://neighborhue-frontend.vercel.app/pricing', // Update with your cancel URL
+        success_url: `${process.env.FRONTEND_URL}/`, // Update with your success URL
+        cancel_url: `${process.env.FRONTEND_URL}/pricing`, // Update with your cancel URL
         customer_email: email,
       });
   

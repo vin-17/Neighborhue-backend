@@ -5,9 +5,9 @@ import authRouter from "./routes/auth.js";
 import userRouter from "./routes/user.js";
 import paymentRouter from "./routes/payment.js"
 import cors from "cors";
-import cookieSession from "cookie-session";
-import passport from "passport";
 import "./controller/taskScheduler.js"
+import dotenv from 'dotenv';
+dotenv.config();
 
 export const app = express();
 
@@ -16,7 +16,7 @@ app.use(express.json());
 app.use((req, res, next) => {
   res.setHeader(
     "Access-Control-Allow-Origin",
-    "https://neighborhue-frontend.vercel.app"
+    `${process.env.FRONTEND_URL}`
   );
   res.setHeader(
     "Access-Control-Allow-Methods",
