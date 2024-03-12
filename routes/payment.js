@@ -43,6 +43,7 @@ router.post('/checkout-session-onetime', async (req, res) => {
         cancel_url: `${process.env.FRONTEND_URL}/pricing`, // Update with your cancel URL
         customer_email: email,
       });
+      console.log(" one time payment function ends ----- ", session.id);
   
       // Send the session ID back to the client
       res.json({ sessionId: session.id });
